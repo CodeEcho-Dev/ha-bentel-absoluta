@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="brands/bentel_absoluta/logo.png" alt="Bentel Absoluta" width="320">
+</p>
+
 # Bentel Absoluta for Home Assistant
 
 A Home Assistant custom integration for the **Bentel Absoluta** alarm
@@ -39,6 +43,22 @@ as the integration's directory.
 
 Copy `custom_components/bentel_absoluta/` into your Home Assistant
 config's `custom_components/` directory, then restart Home Assistant.
+
+### About the icon
+
+The icon is the real Bentel Absoluta app's own brand mark, used here to
+identify which product this integration talks to (not to imply any
+official relationship — see the disclaimer above).
+
+Home Assistant doesn't read an integration's icon from inside
+`custom_components/` — it looks it up from the community-maintained
+[home-assistant/brands](https://github.com/home-assistant/brands)
+repository. The `brands/bentel_absoluta/` folder in this repo holds
+`icon.png`/`icon@2x.png`/`logo.png`/`logo@2x.png` already sized and named
+to match that repo's expected layout for a custom integration, ready to
+submit there as a PR under `custom_integrations/bentel_absoluta/`. Until
+that's merged, Home Assistant will show a generic placeholder icon for
+this integration — that's expected, not a bug.
 
 ## Configuration
 

@@ -1,7 +1,4 @@
-"""Insertion-mode group switches and zone-bypass switches.
-
-See docs/phase5-implementation-guide.md sub-step 1's entity table.
-"""
+"""Insertion-mode group switches and zone-bypass switches."""
 
 from __future__ import annotations
 
@@ -23,8 +20,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: BentelAbsolutaConfigEntr
     entities: list[SwitchEntity] = []
 
     # Only present in armingLabels for a group that isn't "Disabled" in
-    # the app - see docs/protocol.md's confirmed rule (entry present =
-    # enabled button, absent = greyed-out placeholder = no entity here).
+    # the app (entry present = enabled button, absent = greyed-out
+    # placeholder = no entity here).
     for group in coordinator.data.get("main", {}).get("armingLabels", {}):
         entities.append(BentelAbsolutaGroupSwitch(coordinator, serial, name, group))
 
@@ -39,9 +36,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: BentelAbsolutaConfigEntr
 class BentelAbsolutaGroupSwitch(BentelAbsolutaEntity, SwitchEntity):
     """One insertion-mode group (A-D) - `main.armingStatus[letter]`.
 
-    Confirmed 2026-09-05: this is a stateless *toggle* endpoint (arming
-    and disarming the same group send the identical body) - there is no
-    explicit-end-state form. turn_on/turn_off therefore only call the API
+    This is a stateless *toggle* endpoint (arming and disarming the same
+    group send the identical body) - there is no explicit-end-state
+    form. turn_on/turn_off therefore only call the API
     when a flip is actually needed, comparing against the coordinator's
     last-known state first, to avoid an accidental flip in the wrong
     direction from a stale read.

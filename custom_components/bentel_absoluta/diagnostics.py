@@ -1,7 +1,6 @@
 """Diagnostics support - redacts the PIN and clientId before returning
-anything. See docs/phase5-implementation-guide.md sub-step 4: this
-integration handles a real secret (the panel PIN) plus a persistent
-clientId, and AGENTS.md is explicit about never leaking credentials.
+anything, since this integration handles a real secret (the panel PIN)
+plus a persistent clientId that should never be leaked.
 """
 
 from __future__ import annotations

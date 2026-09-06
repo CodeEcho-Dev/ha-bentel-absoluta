@@ -1,6 +1,5 @@
 """Pure-function tests for api.py - no live panel or HA test harness
-needed. Fixture payloads lifted from docs/protocol.md and
-docs/captured-messages-log.md (sanitized values only).
+needed.
 """
 
 from custom_components.bentel_absoluta.api import parse_longpoll_chunk
@@ -15,9 +14,8 @@ def test_single_event():
 
 
 def test_multiple_events_in_one_chunk():
-    """Confirmed in docs/protocol.md: a single long-poll response can
-    contain multiple newline-separated JSON objects at once (observed up
-    to 3)."""
+    """A single long-poll response can contain multiple newline-separated
+    JSON objects at once (observed up to 3)."""
     text = (
         '{"eventType":"pageChanged","pageData":{"globalArmingStatus":true},"pageName":"main"}\n'
         '{"eventType":"pageChanged","pageData":{"armingStatus":[2,0,0]},"pageName":"status"}\n'

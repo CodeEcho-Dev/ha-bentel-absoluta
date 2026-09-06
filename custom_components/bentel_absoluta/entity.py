@@ -2,8 +2,7 @@
 
 Centralizing DeviceInfo construction here (rather than inline in every
 platform file) avoids the classic bug of a typo'd `identifiers` tuple
-silently creating a duplicate device for something that should be one -
-see docs/phase5-implementation-guide.md sub-step 4.
+silently creating a duplicate device for something that should be one.
 """
 
 from __future__ import annotations
@@ -21,8 +20,8 @@ def panel_device_info(serial: str, name: str) -> DeviceInfo:
     """The root device for the whole panel.
 
     `name` is the user-chosen name from Config Flow - the serial is never
-    used as, or folded into, any display name (see sub-step 3's
-    "Naming"). It only appears here as the internal `identifiers` value.
+    used as, or folded into, any display name. It only appears here as
+    the internal `identifiers` value.
     """
     return DeviceInfo(
         identifiers={(DOMAIN, serial)},
@@ -44,10 +43,9 @@ def partition_device_info(serial: str, partition_id: int, label: str) -> DeviceI
 def zone_device_info(serial: str, zone_id: int, label: str) -> DeviceInfo:
     """One device per unique zoneId, parented directly to the panel (not
     to a partition) - a zoneId can appear in more than one partition's
-    zones[] entry (confirmed: a shared fire zone repeats in every
-    partition), so a zone must be a single device keyed by zoneId, not
-    duplicated per-partition. See sub-step 1's "Why zones are their own
-    devices"."""
+    zones[] entry (a shared fire zone repeats in every partition), so a
+    zone must be a single device keyed by zoneId, not duplicated
+    per-partition."""
     return DeviceInfo(
         identifiers={(DOMAIN, f"{serial}:zone:{zone_id}")},
         name=label,
@@ -59,7 +57,7 @@ def all_zone_ids(data: dict[str, Any]) -> dict[int, str]:
     """zoneId -> label, deduplicated across every partition's zones[]
     group - a shared zone (e.g. a fire detector) repeats in each
     partition's group, but must resolve to exactly one HA device/entity
-    set. See sub-step 1's "Why zones are their own devices"."""
+    set."""
     result: dict[int, str] = {}
     for group in data.get("status", {}).get("zones", []):
         for zone_id, label in zip(group.get("zoneIds", []), group.get("zoneLabels", []), strict=False):

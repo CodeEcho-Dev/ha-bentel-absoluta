@@ -1,9 +1,8 @@
 """The Bentel Absoluta integration.
 
-See docs/phase5-implementation-guide.md for the full design. This file
-stays thin by design: build the API client + coordinator, run the first
-refresh, store both on entry.runtime_data, forward to platforms. No
-business logic belongs here - see api.py/coordinator.py.
+This file stays thin by design: build the API client + coordinator, run
+the first refresh, store both on entry.runtime_data, forward to
+platforms. No business logic belongs here - see api.py/coordinator.py.
 """
 
 from __future__ import annotations

@@ -1,7 +1,6 @@
 """Global + per-partition alarm_control_panel entities.
 
-See docs/phase5-implementation-guide.md sub-step 1's entity table. Two
-kinds, mirroring the app's own two independent control surfaces:
+Two kinds, mirroring the app's own two independent control surfaces:
 - one "global" entity (panel device) - boolean only, no stay/away/night.
 - one entity per partition (partition device) - the real 4-mode control.
 """
@@ -21,11 +20,10 @@ from .const import ARMING_AWAY, ARMING_DISARM, ARMING_NO_DELAY, ARMING_STAY, CON
 from .coordinator import BentelAbsolutaCoordinator
 from .entity import BentelAbsolutaEntity, panel_device_info, partition_device_info
 
-# State mapping confirmed 2026-09-05 (docs/protocol.md) as a direct 1:1
-# passthrough of the partitionArming request enum into status.armingStatus[i].
-# armed_night is a deliberate reuse of HA's 4th arm-state slot for "No
-# Delay" (arms immediately, skips the exit delay) - not a semantic claim
-# that this is "night mode". See sub-step 1's "Naming" note - a stock
+# State mapping: a direct 1:1 passthrough of the partitionArming request
+# enum into status.armingStatus[i]. armed_night is a deliberate reuse of
+# HA's 4th arm-state slot for "No Delay" (arms immediately, skips the
+# exit delay) - not a semantic claim that this is "night mode". A stock
 # Lovelace card will show a button labeled "Night" for this.
 _ARMING_STATUS_TO_STATE = {
     ARMING_DISARM: AlarmControlPanelState.DISARMED,

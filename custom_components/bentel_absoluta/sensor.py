@@ -1,9 +1,8 @@
 """Panel warning-count sensor.
 
-See docs/phase5-implementation-guide.md sub-step 1's entity table. Raw
-count only - not split into tamper/battery/mains-loss (deferred to v1.1,
-see AGENTS.md, since `settings.enabledSubtypes`/`warningNum`'s per-
-condition mapping isn't confirmed yet).
+Raw count only - not split into tamper/battery/mains-loss, since
+`settings.enabledSubtypes`/`warningNum`'s per-condition mapping isn't
+confirmed yet.
 """
 
 from __future__ import annotations

@@ -1,8 +1,8 @@
 """Config Flow for Bentel Absoluta.
 
-See docs/phase5-implementation-guide.md sub-step 3. Validation runs the
-exact same session-lifecycle sequence the coordinator's Tier 2 refresh
-does (session -> credentials -> wait for the burst, watching for a
+Validation runs the exact same session-lifecycle sequence the
+coordinator's Tier 2 refresh does (session -> credentials -> wait for
+the burst, watching for a
 wrongPin deviceError -> settings/notifications -> close) rather than a
 lighter-weight check - this is deliberate, not extra work, since it's the
 one real proof the serial+PIN pair actually works and it seeds
@@ -77,9 +77,9 @@ class InvalidAuth(HomeAssistantError):
 async def _bootstrap(hass: HomeAssistant, serial: str, pin: str, client_id: str) -> None:
     """Run the full session lifecycle once, as Config Flow validation.
 
-    Raises CannotConnect / InvalidAuth - see docs/phase5-implementation-
-    guide.md sub-step 3's "Error mapping" for the reasoning behind each
-    branch below, especially the UNREACHABLE retry-once rule.
+    Raises CannotConnect / InvalidAuth, with an UNREACHABLE retry-once
+    rule (see below) since that error code alone can't distinguish a
+    wrong serial from a transiently-unreachable real panel.
     """
     session = async_get_clientsession(hass)
     api = BentelAbsolutaApiClient(session, client_id)
@@ -94,9 +94,9 @@ async def _bootstrap(hass: HomeAssistant, serial: str, pin: str, client_id: str)
                 # A real client already holds the session - not an auth
                 # problem, and retrying won't help within Config Flow.
                 raise CannotConnect from err
-            # UNREACHABLE: confirmed 2026-09-05 to also mean "wrong
-            # serial", but it's ambiguous with a transient post-eviction
-            # blip - retry once before concluding invalid_auth.
+            # UNREACHABLE can also mean "wrong serial", but it's ambiguous
+            # with a transient post-eviction blip - retry once before
+            # concluding invalid_auth.
             if attempt == 0:
                 await asyncio.sleep(UNREACHABLE_RETRY_DELAY)
                 continue
@@ -201,7 +201,7 @@ class BentelAbsolutaConfigFlow(ConfigFlow, domain=DOMAIN):
 
 
 class BentelAbsolutaOptionsFlow(OptionsFlow):
-    """Options: the two poll intervals from sub-step 2's two-tier design."""
+    """Options: the two poll intervals from the coordinator's two-tier design."""
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
         errors: dict[str, str] = {}

@@ -1,7 +1,5 @@
 """Zone open/closed + alarm, panel installer-remote-access/alarm-active,
 and partition not-ready binary sensors.
-
-See docs/phase5-implementation-guide.md sub-step 1's entity table.
 """
 
 from __future__ import annotations
@@ -81,9 +79,9 @@ class BentelAbsolutaAlarmActive(BentelAbsolutaEntity, BinarySensorEntity):
 class BentelAbsolutaPartitionNotReady(BentelAbsolutaEntity, BinarySensorEntity):
     """Mirrors the app's "Open Zones" pill - `status.partitionStatus[i]`.
 
-    Confirmed 2026-09-05 this field tracks zone readiness only, not arm
-    state - an armed, all-clear partition also reads 0 here, so this
-    sensor stays accurate regardless of the partition's arm state.
+    This field tracks zone readiness only, not arm state - an armed,
+    all-clear partition also reads 0 here, so this sensor stays accurate
+    regardless of the partition's arm state.
     """
 
     _attr_name = "Not ready"
