@@ -1,0 +1,44 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Connect to your Bentel Absoluta panel",
+                "description": "Enter the panel's serial number and PIN - the same two values the Absoluta app itself asks for. There's no separate account/login.",
+                "data": {
+                    "name": "Name",
+                    "serial": "Panel serial",
+                    "pin": "PIN"
+                }
+            },
+            "reauth_confirm": {
+                "title": "Re-enter your Bentel Absoluta PIN",
+                "description": "The panel rejected the stored PIN - it may have been changed on the panel itself.",
+                "data": {
+                    "pin": "PIN"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Couldn't reach the panel. If it's currently connected via the mobile app, try again shortly.",
+            "invalid_auth": "The serial or PIN was rejected by the panel.",
+            "unknown": "Unexpected error."
+        },
+        "abort": {
+            "already_configured": "This panel is already configured.",
+            "reauth_successful": "Re-authentication was successful."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sync_interval": "Event poll interval (seconds)",
+                    "snapshot_interval": "Full status refresh interval (seconds)"
+                }
+            }
+        },
+        "error": {
+            "snapshot_interval_too_low": "The full status refresh interval is too low - a short interval means this integration opens a session on the panel more often, which can interrupt the mobile app's own connection."
+        }
+    }
+}

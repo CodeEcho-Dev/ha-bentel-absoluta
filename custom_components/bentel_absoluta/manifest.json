@@ -1,0 +1,13 @@
+{
+    "domain": "bentel_absoluta",
+    "name": "Bentel Absoluta",
+    "codeowners": ["@CodeEcho-dev"],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://github.com/CodeEcho-dev/ha-bentel-absoluta",
+    "integration_type": "hub",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/CodeEcho-dev/ha-bentel-absoluta/issues",
+    "requirements": [],
+    "version": "0.1.0"
+}
